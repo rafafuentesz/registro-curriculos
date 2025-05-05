@@ -1,12 +1,32 @@
-# React + Vite
+# 📘 Gestor de Currículums – React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web desarrollada con **React** para registrar, visualizar y filtrar información de currículums vitae. Permite a los usuarios subir su información personal, educación, experiencia laboral y una foto, todo de forma sencilla e interactiva.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Características
 
-## Expanding the ESLint configuration
+- 🧍 Registro de datos personales, educación y experiencia laboral.
+- 📸 Carga de fotografía del candidato.
+- 🔍 Filtros por búsqueda textual y año mínimo de graduación.
+- 🗂️ Lista interactiva con opciones para ver o eliminar un currículo.
+- ✨ Animaciones con **Framer Motion** para mejorar la experiencia visual.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tecnologías usadas
+
+- **React** – Biblioteca principal para la UI.
+- **Tailwind CSS** – Estilado moderno y responsive.
+- **Framer Motion** – Animaciones fluidas y atractivas.
+- **UUID** – Generación de IDs únicos para currículos.
+
+---
+
+## ⚙️ Instalación y uso local
+
+1. **Clonar el repositorio:**
+
+   ```bash
+   git clone https://github.com/tu-usuario/curriculum-app.git
+   cd curriculum-app
