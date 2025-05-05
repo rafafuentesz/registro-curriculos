@@ -1,21 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function CurriculumList({ curriculums, onSelect, onDelete }) {
-  const [search, setSearch] = useState('');
-  const [minAnio, setMinAnio] = useState('');
+  const [search, setSearch] = useState("");
+  const [minAnio, setMinAnio] = useState("");
 
-  const filtered = curriculums.filter((c) => {
-    const term = search.toLowerCase();
-    return (
-      c.nombre.toLowerCase().includes(term) ||
-      c.email.toLowerCase().includes(term) ||
-      c.titulo.toLowerCase().includes(term) ||
-      c.empleador.toLowerCase().includes(term) ||
-      c.descripcion.toLowerCase().includes(term)
-    );
-  }).filter((c) => !minAnio || parseInt(c.anio) >= parseInt(minAnio));
+  const filtered = curriculums
+    .filter((c) => {
+      const term = search.toLowerCase();
+      return (
+        c.nombre.toLowerCase().includes(term) ||
+        c.email.toLowerCase().includes(term) ||
+        c.titulo.toLowerCase().includes(term) ||
+        c.empleador.toLowerCase().includes(term) ||
+        c.descripcion.toLowerCase().includes(term)
+      );
+    })
+    .filter((c) => !minAnio || parseInt(c.anio) >= parseInt(minAnio));
 
   return (
     <motion.div
@@ -59,12 +61,23 @@ function CurriculumList({ curriculums, onSelect, onDelete }) {
               >
                 <div>
                   <strong>{c.nombre}</strong> – {c.email}
+                  <div className="text-sm text-gray-600">
+                    {c.educacion.length} estudios, {c.experiencia.length}{" "}
+                    experiencias
+                  </div>
                 </div>
+
                 <div>
-                  <button onClick={() => onSelect(c)} className="text-blue-500 mr-2">
+                  <button
+                    onClick={() => onSelect(c)}
+                    className="text-blue-500 mr-2"
+                  >
                     Ver
                   </button>
-                  <button onClick={() => onDelete(c.id)} className="text-red-500">
+                  <button
+                    onClick={() => onDelete(c.id)}
+                    className="text-red-500"
+                  >
                     Eliminar
                   </button>
                 </div>

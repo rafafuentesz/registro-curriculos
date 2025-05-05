@@ -9,28 +9,46 @@ function CurriculumDetail({ curriculum }) {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <h2 className="text-xl font-bold mb-2">{curriculum.nombre}</h2>
-      <p><strong>Email:</strong> {curriculum.email}</p>
-      <p><strong>Teléfono:</strong> {curriculum.telefono}</p>
 
-      <h3 className="font-semibold mt-2">Educación</h3>
-      <p>{curriculum.titulo} – {curriculum.institucion} ({curriculum.anio})</p>
-
-      <h3 className="font-semibold mt-2">Experiencia Laboral</h3>
-      <p>{curriculum.empleador} – {curriculum.cargo}</p>
-      <p>{curriculum.fechaInicio} a {curriculum.fechaFin}</p>
-      <p>{curriculum.descripcion}</p>
-
-      {curriculum.foto && (
+{curriculum.foto && (
         <motion.img
           src={curriculum.foto}
           alt="Foto del candidato"
-          className="mt-4 w-32 h-32 object-cover rounded"
+          className="mb-3 w-32 h-32 object-cover rounded mx-auto"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 100 }}
         />
       )}
+      <h2 className="text-xl font-bold mb-2">{curriculum.nombre}</h2>
+      <p>
+        <strong>Email:</strong> {curriculum.email}
+      </p>
+      <p>
+        <strong>Teléfono:</strong> {curriculum.telefono}
+      </p>
+
+      <h3 className="font-semibold mt-2">Educación</h3>
+      {curriculum.educacion.map((edu, i) => (
+        <p key={i}>
+          {edu.titulo} – {edu.institucion} ({edu.anio})
+        </p>
+      ))}
+
+      <h3 className="font-semibold mt-2">Experiencia Laboral</h3>
+      {curriculum.experiencia.map((exp, i) => (
+        <div key={i} className="mb-2">
+          <p>
+            {exp.empleador} – {exp.cargo}
+          </p>
+          <p>
+            {exp.fechaInicio} a {exp.fechaFin}
+          </p>
+        </div>
+      ))}
+      <h3 className="font-semibold mt-2">Descripción</h3>
+      <p>{curriculum.descripcion}</p>
+
     </motion.div>
   );
 }

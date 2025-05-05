@@ -1,25 +1,21 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { motion } from "framer-motion";
 
 function CurriculumForm({ onAdd }) {
   const [form, setForm] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    titulo: '',
-    institucion: '',
-    anio: '',
-    empleador: '',
-    cargo: '',
-    fechaInicio: '',
-    fechaFin: '',
-    descripcion: '',
-    foto: ''
+    nombre: "",
+    email: "",
+    telefono: "",
+    educacion: [{ titulo: "", institucion: "", anio: "" }],
+    experiencia: [{ empleador: "", cargo: "", fechaInicio: "", fechaFin: "" }],
+    descripcion: "",
+    foto: "",
   });
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleImage = (e) => {
     const file = e.target.files[0];
@@ -28,12 +24,62 @@ function CurriculumForm({ onAdd }) {
     reader.readAsDataURL(file);
   };
 
+  // Educación
+  const handleEducacionChange = (i, e) => {
+    const updated = [...form.educacion];
+    updated[i][e.target.name] = e.target.value;
+    setForm({ ...form, educacion: updated });
+  };
+
+  const addEducacion = () => {
+    setForm({
+      ...form,
+      educacion: [...form.educacion, { titulo: "", institucion: "", anio: "" }],
+    });
+  };
+
+  // Experiencia
+  const handleExperienciaChange = (i, e) => {
+    const updated = [...form.experiencia];
+    updated[i][e.target.name] = e.target.value;
+    setForm({ ...form, experiencia: updated });
+  };
+
+  const addExperiencia = () => {
+    setForm({
+      ...form,
+      experiencia: [
+        ...form.experiencia,
+        { empleador: "", cargo: "", fechaInicio: "", fechaFin: "" },
+      ],
+    });
+  };
+
+  // (Todo el código anterior sigue igual hasta el return)
+
+  const removeEducacion = (index) => {
+    const updated = form.educacion.filter((_, i) => i !== index);
+    setForm({ ...form, educacion: updated });
+  };
+
+  const removeExperiencia = (index) => {
+    const updated = form.experiencia.filter((_, i) => i !== index);
+    setForm({ ...form, experiencia: updated });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onAdd({ id: uuidv4(), ...form });
     setForm({
-      nombre: '', email: '', telefono: '', titulo: '', institucion: '', anio: '',
-      empleador: '', cargo: '', fechaInicio: '', fechaFin: '', descripcion: '', foto: ''
+      nombre: "",
+      email: "",
+      telefono: "",
+      educacion: [{ titulo: "", institucion: "", anio: "" }],
+      experiencia: [
+        { empleador: "", cargo: "", fechaInicio: "", fechaFin: "" },
+      ],
+      descripcion: "",
+      foto: "",
     });
   };
 
@@ -51,13 +97,32 @@ function CurriculumForm({ onAdd }) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <h3 className="text-lg font-semibold mb-2 text-left">Datos personales</h3>
-        <input name="nombre" placeholder="Nombre completo" value={form.nombre} onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded" required />
-        <input name="email" placeholder="Correo electrónico" value={form.email} onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded" required />
-        <input name="telefono" placeholder="Teléfono" value={form.telefono} onChange={handleChange}
-          className="w-full p-2 border rounded" />
+        <h3 className="text-lg font-semibold mb-2 text-left">
+          Datos personales
+        </h3>
+        <input
+          name="nombre"
+          placeholder="Nombre completo"
+          value={form.nombre}
+          onChange={handleChange}
+          className="w-full p-2 mb-2 border rounded"
+          required
+        />
+        <input
+          name="email"
+          placeholder="Correo electrónico"
+          value={form.email}
+          onChange={handleChange}
+          className="w-full p-2 mb-2 border rounded"
+          required
+        />
+        <input
+          name="telefono"
+          placeholder="Teléfono"
+          value={form.telefono}
+          onChange={handleChange}
+          className="w-full p-2 border rounded"
+        />
       </motion.div>
 
       {/* Educación */}
@@ -67,12 +132,48 @@ function CurriculumForm({ onAdd }) {
         transition={{ delay: 0.2 }}
       >
         <h3 className="text-lg font-semibold mt-4 mb-2 text-left">Educación</h3>
-        <input name="titulo" placeholder="Último título obtenido" value={form.titulo} onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded" />
-        <input name="institucion" placeholder="Institución educativa" value={form.institucion} onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded" />
-        <input name="anio" placeholder="Año de graduación o previsto" value={form.anio} onChange={handleChange}
-          className="w-full p-2 border rounded" />
+        {form.educacion.map((edu, i) => (
+          <div key={i} className="mb-4 border p-2 rounded text-white relative">
+            <input
+              name="titulo"
+              placeholder="Título"
+              value={edu.titulo}
+              onChange={(e) => handleEducacionChange(i, e)}
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              name="institucion"
+              placeholder="Institución"
+              value={edu.institucion}
+              onChange={(e) => handleEducacionChange(i, e)}
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              name="anio"
+              placeholder="Año"
+              value={edu.anio}
+              onChange={(e) => handleEducacionChange(i, e)}
+              className="w-full p-2 border rounded"
+            />
+            {form.educacion.length > 1 && (
+              <button
+                type="button"
+                onClick={() => removeEducacion(i)}
+                className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm"
+              >
+                X
+              </button>
+            )}
+          </div>
+        ))}
+
+        <button
+          type="button"
+          onClick={addEducacion}
+          className="bg-blue-500 text-white px-4 py-1 rounded mb-4"
+        >
+          + Añadir educación
+        </button>
       </motion.div>
 
       {/* Experiencia */}
@@ -81,15 +182,61 @@ function CurriculumForm({ onAdd }) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">Experiencia laboral</h3>
-        <input name="empleador" placeholder="Empresa" value={form.empleador} onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded" />
-        <input name="cargo" placeholder="Cargo" value={form.cargo} onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded" />
-        <input name="fechaInicio" placeholder="Fecha de inicio" value={form.fechaInicio} onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded" />
-        <input name="fechaFin" placeholder="Fecha de fin" value={form.fechaFin} onChange={handleChange}
-          className="w-full p-2 border rounded" />
+        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">
+          Experiencia laboral
+        </h3>
+        {form.experiencia.map((exp, i) => (
+          <div
+            key={i}
+            className="mb-4 border p-2 rounded text-white relative"
+          >
+            <input
+              name="empleador"
+              placeholder="Empresa"
+              value={exp.empleador}
+              onChange={(e) => handleExperienciaChange(i, e)}
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              name="cargo"
+              placeholder="Cargo"
+              value={exp.cargo}
+              onChange={(e) => handleExperienciaChange(i, e)}
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              name="fechaInicio"
+              placeholder="Inicio"
+              value={exp.fechaInicio}
+              onChange={(e) => handleExperienciaChange(i, e)}
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              name="fechaFin"
+              placeholder="Fin"
+              value={exp.fechaFin}
+              onChange={(e) => handleExperienciaChange(i, e)}
+              className="w-full p-2 border rounded"
+            />
+            {form.experiencia.length > 1 && (
+              <button
+                type="button"
+                onClick={() => removeExperiencia(i)}
+                className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm"
+              >
+                X
+              </button>
+            )}
+          </div>
+        ))}
+
+        <button
+          type="button"
+          onClick={addExperiencia}
+          className="bg-blue-500 text-white px-4 py-1 rounded mb-4"
+        >
+          + Añadir experiencia
+        </button>
       </motion.div>
 
       {/* Descripción */}
@@ -98,9 +245,14 @@ function CurriculumForm({ onAdd }) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">Descripción</h3>
-        <textarea name="descripcion" placeholder="Breve descripción o logros"
-          onChange={handleChange} value={form.descripcion}
+        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">
+          Descripción
+        </h3>
+        <textarea
+          name="descripcion"
+          placeholder="Breve descripción o logros"
+          onChange={handleChange}
+          value={form.descripcion}
           className="w-full p-2 border rounded"
         />
       </motion.div>
@@ -112,7 +264,12 @@ function CurriculumForm({ onAdd }) {
         transition={{ delay: 0.5 }}
       >
         <h3 className="text-lg font-semibold mt-4 mb-2 text-left">Foto</h3>
-        <input type="file" accept="image/*" onChange={handleImage} className="w-full" />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImage}
+          className="w-full"
+        />
       </motion.div>
 
       {/* Botón */}
