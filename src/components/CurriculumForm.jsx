@@ -51,7 +51,7 @@ function CurriculumForm({ onAdd }) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <h3 className="text-lg font-semibold mb-2 text-left">📇 Datos personales</h3>
+        <h3 className="text-lg font-semibold mb-2 text-left">Datos personales</h3>
         <input name="nombre" placeholder="Nombre completo" value={form.nombre} onChange={handleChange}
           className="w-full p-2 mb-2 border rounded" required />
         <input name="email" placeholder="Correo electrónico" value={form.email} onChange={handleChange}
@@ -66,7 +66,7 @@ function CurriculumForm({ onAdd }) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">🎓 Educación</h3>
+        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">Educación</h3>
         <input name="titulo" placeholder="Último título obtenido" value={form.titulo} onChange={handleChange}
           className="w-full p-2 mb-2 border rounded" />
         <input name="institucion" placeholder="Institución educativa" value={form.institucion} onChange={handleChange}
@@ -81,7 +81,7 @@ function CurriculumForm({ onAdd }) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">💼 Experiencia laboral</h3>
+        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">Experiencia laboral</h3>
         <input name="empleador" placeholder="Empresa" value={form.empleador} onChange={handleChange}
           className="w-full p-2 mb-2 border rounded" />
         <input name="cargo" placeholder="Cargo" value={form.cargo} onChange={handleChange}
@@ -98,7 +98,7 @@ function CurriculumForm({ onAdd }) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">📝 Descripción</h3>
+        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">Descripción</h3>
         <textarea name="descripcion" placeholder="Breve descripción o logros"
           onChange={handleChange} value={form.descripcion}
           className="w-full p-2 border rounded"
@@ -111,7 +111,7 @@ function CurriculumForm({ onAdd }) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">🖼️ Foto</h3>
+        <h3 className="text-lg font-semibold mt-4 mb-2 text-left">Foto</h3>
         <input type="file" accept="image/*" onChange={handleImage} className="w-full" />
       </motion.div>
 
