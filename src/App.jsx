@@ -74,29 +74,43 @@ function App() {
           {view === "home" && (
             <motion.div
               key="home"
-              className="flex flex-row gap-4"
+              className="flex flex-col items-center gap-4"
               variants={sectionVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
               transition={{ duration: 0.4 }}
             >
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setView("form")}
-                className="bg-blue-600 hover:bg-blue-800 px-6 py-3 rounded-lg"
-              >
-                Subir currículum
-              </motion.button>
+              <div className="flex flex-row gap-4">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setView("form")}
+                  className="bg-blue-600 hover:bg-blue-800 px-6 py-3 rounded-lg"
+                >
+                  Subir currículum
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setView("list")}
+                  className="bg-green-600 hover:bg-green-800 px-6 py-3 rounded-lg"
+                >
+                  Ver currículums
+                </motion.button>
+              </div>
 
               <motion.button
-                whileHover={{ scale: 1.1 }}
+                onClick={() => {
+                  localStorage.removeItem("curriculums");
+                  window.location.reload();
+                }}
+                className="px-4 py-2 bg-red-600 rounded"
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setView("list")}
-                className="bg-green-600 hover:bg-green-800 px-6 py-3 rounded-lg"
               >
-                Ver currículums
+                Limpiar localStorage (suele solucionar errores)
               </motion.button>
             </motion.div>
           )}
